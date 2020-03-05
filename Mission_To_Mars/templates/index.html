@@ -6,28 +6,57 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MARS INFO!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
-    <div class="jumbotron text-center">
-        <h1>Mission to Mars</h1>
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <p>{{mars_deets.title}}</p>
-            <!-- <p>{{mars_deets.news_p}}</p>
-            <p>{{mars_deets.featured_image_url}}</p>
-            <p>{{mars_deets.mars_weather}}</p>
-            <p>{{mars_deets.marsFacts}}</p>
-            <p>{{mars_deets.hemisphere_image_urls}}</p> -->
 
 
+        <div class="jumbotron text-center">
+          <h1>Mission to Mars</h1>
+          <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get New Data!</a></p>
         </div>
-    </div>
-
-
-
+    
+        <!-- Mars Info-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Latest Mars News</h2>
+                    <h4>{{mars_deets.title}}</h4>
+                    <p>{{mars_deets.news}}</p>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img class="featImage" src="{{mars_deets.featured_image}}" width =90%>
+                </div>
+                <div class = "col-md-4">
+                    <h3>Current Weather On Mars</h3>
+                    <p>{{mars_deets.weather}}</p>
+                    <h3>Mars Facts</h3>
+                    <table>
+                        {{mars_deets.facts|safe}}
+                    </table>
+                </div>
+ 
+            </div>
+            <h2>Mars Hemispheres</h2>
+            <div class='card-deck'>
+            <div class='col-md-12'>
+                <div class="row">
+                    {% for item in mars_deets.hemisphere_images %}
+                    <div class="col-md-6">
+                        <div class="card text-white bg-dark" style="margin: 30px;">
+                            <img class="card-img-top" src="{{item.URL}}" width=75%>
+                            <div class="card-body">
+                                <h3 class="card-text">{{ item.title }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+    
+        </div>
 
 </body>
 </html>

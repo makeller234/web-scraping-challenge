@@ -63,7 +63,7 @@ def scrape():
 
     table = pd.read_html(tableURL)
     information = table[0]
-    marsFacts = information.to_html()
+    marsFacts = information.to_html(header=False, index=False)
 
     mars_deets["facts"] = marsFacts
 
@@ -110,5 +110,6 @@ def scrape():
 
     mars_deets["hemisphere_images"] = hemisphere_image_urls
 
+    browser.quit()
     # print(mars_deets)
     return mars_deets

@@ -13,18 +13,25 @@ def scrape():
 
     mars_deets = {}
 
-    # find article title
+    # find article title and paragraph info
     articleURL = "https://mars.nasa.gov/news"
     browser.visit(articleURL)
     html = browser.html
     soup = bs(html, "html.parser")
-
-    articleTitle = soup.find("ul", class_="item_list")
-    news_title = articleTitle.find('div', class_="content_title").text
-    
-    # find paragraph text for articles
+    x = 0
+    while x == 0:
+        try:
+            articleTitle = soup.find("div", class_="list_text")
+            title = articleTitle.find('div', class_="content_title")
+            news_title = title.text
+            x = 1
+        except AttributeError:
+            x = 0
+ 
+    # in the .ipynb I needed to have another x = 1 outside the loop to make it stop, but here that doesn't seem to be necessary
+    # still seems a little spotty on weather (pun intended) it works on the first try, but it ususally works on the first try here in the .py 
+        
     news_p = soup.find('div', class_='article_teaser_body').text
-
 
     mars_deets["title"] = news_title
     mars_deets["news"] = news_p
@@ -50,13 +57,20 @@ def scrape():
 
     # mars twitter weather
     weatherURL = "https://twitter.com/marswxreport?lang=en"
-    weatherResponse = requests.get(weatherURL)
 
+    weatherResponse = requests.get(weatherURL)
     weatherSoup = bs(weatherResponse.text, 'html.parser')
 
-    mars_weather = weatherSoup.find('p', class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
+    weatherTweets = weatherSoup.find_all('div', class_="js-tweet-text-container")
 
-    mars_deets["weather"] = mars_weather
+    for tweet in weatherTweets:
+        mars_weather = tweet.find('p').text
+        if "InSight" and "sol" in mars_weather:
+            mars_deets["weather"]=mars_weather
+            break
+        else:
+            pass
+
 
     # mars facts
     tableURL = "https://space-facts.com/mars/"

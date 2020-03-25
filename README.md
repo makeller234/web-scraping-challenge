@@ -1,5 +1,3 @@
-# Mars Information collected via Web Scraping
-
 ## Step 1: Gathering Information
 
 ### NASA Mars News

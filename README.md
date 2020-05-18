@@ -1,6 +1,6 @@
 # Mars Information
 
-This repository scarpes the following website to gather information about Mars:
+This repository scrapes the following websites to gather information about Mars:
 * [NASA Mars News Site](https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest)
     * To get the headline and introductory sentence for the latest article
 * [JPL Mars Space Images](https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars)
